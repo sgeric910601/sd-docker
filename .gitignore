@@ -1,0 +1,11 @@
+# Large files
+*.whl
+stable-diffusion-webui/
+
+# Secrets
+.env
+
+# Data
+*.ckpt
+*.safetensors
+outputs/

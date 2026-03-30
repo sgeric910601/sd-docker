@@ -1,0 +1,1 @@
+  ~/kuan/sd-docker/download-lora.sh https://civitai.com/api/download/models/12345                                                                            
