@@ -1,6 +1,15 @@
 #!/bin/bash
 
-CIVITAI_TOKEN="REMOVED-CIVITAI-TOKEN"
+# Civitai 權杖放在同目錄的 .env（不進 git，權限 600），內容一行：CIVITAI_TOKEN=你的權杖
+# 也可以先在環境變數設定 CIVITAI_TOKEN。
+ENV_FILE="$(dirname "$(readlink -f "$0")")/.env"
+if [ -z "${CIVITAI_TOKEN:-}" ] && [ -f "$ENV_FILE" ]; then
+    CIVITAI_TOKEN=$(sed -n 's/^CIVITAI_TOKEN=//p' "$ENV_FILE" | head -n 1 | tr -d "\"'\r")
+fi
+if [ -z "${CIVITAI_TOKEN:-}" ]; then
+    echo "找不到 CIVITAI_TOKEN：請在 $ENV_FILE 寫入一行 CIVITAI_TOKEN=你的權杖"
+    exit 1
+fi
 LORA_DIR="/home/eric/kuan/sd-docker/stable-diffusion-webui/models/Lora"
 
 if [ -z "$1" ]; then
